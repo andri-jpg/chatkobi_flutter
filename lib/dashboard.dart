@@ -24,7 +24,7 @@ class Dashboard extends StatelessWidget {
               alignment: Alignment.centerLeft,
               padding: const EdgeInsets.all(30),
               child: const Text(
-                'Selamat Datang \$user',
+                'Tekan Chat Untuk Memulai :3',
                 style: TextStyle(
                   fontSize: 40,
                   color: Colors.white,
@@ -59,11 +59,9 @@ class Dashboard extends StatelessWidget {
                     children: <Widget>[
                       _buildTileButton('Coming soon', context, () {
 
-                        //print('Tombol 3 ditekan');
                       }, Icons.settings),
                       _buildTileButton('Coming soon', context, () {
 
-                        //print('Tombol 4 ditekan');
                       }, Icons.star), 
                     ],
                   ),

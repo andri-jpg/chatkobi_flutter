@@ -1,34 +1,54 @@
-// ignore_for_file: library_private_types_in_public_api
-
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _ChatScreenState createState() => _ChatScreenState();
 }
 
-class _ChatScreenState extends State<ChatScreen> {
+class _ChatScreenState extends State<ChatScreen> with SingleTickerProviderStateMixin {
   final List<ChatMessage> _messages = <ChatMessage>[];
   final TextEditingController _textController = TextEditingController();
+  bool _isLoading = false;
+  late AnimationController _animationController;
+  late Animation<Color?> _colorTween;
 
-  void _handleSubmitted(String text) {
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 2),
+    );
+    _colorTween = ColorTween(
+      begin: Colors.blue,
+      end: Colors.red, 
+    ).animate(_animationController);
+  }
+
+  void _handleSubmitted(String text) async {
     _textController.clear();
     ChatMessage message = ChatMessage(
-      text: text, isUserMessage: true,
+      text: text,
+      isUserMessage: true,
     );
+
     setState(() {
       _messages.insert(0, message);
+      _startLoading();
     });
+
+    await Future.delayed(const Duration(seconds: 2));
 
     _sendMessageToServer(text);
   }
 
   void _sendMessageToServer(String userInput) async {
-    final url = Uri.parse('http://192.168.85.233:8089/handleinput');
+    final url = Uri.parse('http://34.30.26.95:8089/handleinput');
     final requestBody = {'input': userInput};
 
     final response = await http.post(
@@ -37,16 +57,18 @@ class _ChatScreenState extends State<ChatScreen> {
       headers: {'Content-Type': 'application/json'},
     );
 
+    _stopLoading();
+
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       final botResponse = data['result'];
 
       setState(() {
-        _messages.insert(0, ChatMessage(text: botResponse, isUserMessage: false,));
+        _messages.insert(0, ChatMessage(text: botResponse, isUserMessage: false));
       });
     } else {
-      print('Response Code: ${response.statusCode}');
-      print('Response Body: ${response.body}');
+      //print('Response Code: ${response.statusCode}');
+      //print('Response Body: ${response.body}');
       handleError();
     }
   }
@@ -59,6 +81,20 @@ class _ChatScreenState extends State<ChatScreen> {
     setState(() {
       _messages.insert(0, errorMessage);
     });
+  }
+
+  void _startLoading() {
+    setState(() {
+      _isLoading = true;
+    });
+    _animationController.repeat(); 
+  }
+
+  void _stopLoading() {
+    setState(() {
+      _isLoading = false;
+    });
+    _animationController.reset(); 
   }
 
   Widget _buildTextComposer() {
@@ -79,12 +115,13 @@ class _ChatScreenState extends State<ChatScreen> {
                 decoration: const InputDecoration.collapsed(
                   hintText: 'Ketikkan pertanyaan Anda...',
                 ),
+                enabled: !_isLoading,
               ),
             ),
           ),
           IconButton(
-            icon: const Icon(Icons.send),
-            onPressed: () => _handleSubmitted(_textController.text),
+            icon: Icon(Icons.send, color: _isLoading ? Colors.grey : Colors.blue),
+            onPressed: _isLoading ? null : () => _handleSubmitted(_textController.text),
           ),
         ],
       ),
@@ -108,9 +145,26 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
           ),
           _buildTextComposer(),
+          _isLoading
+              ? AnimatedBuilder(
+                  animation: _animationController,
+                  builder: (context, child) {
+                    return LinearProgressIndicator(
+                      valueColor: _colorTween,
+                      backgroundColor: Colors.grey[300],
+                    );
+                  },
+                )
+              : const SizedBox(),
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
   }
 }
 
@@ -135,18 +189,19 @@ class ChatMessage extends StatelessWidget {
               child: Icon(
                 Icons.person,
                 color: Colors.white,
-                size: 24.0, 
-                ),
-                ),
-                ),
+                size: 24.0,
+              ),
+            ),
+          ),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  isUserMessage ? 'You' : 'AI',
+                  isUserMessage ? 'Anda' : 'AI',
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
+                    fontFamily: 'oxygen',
                   ),
                 ),
                 Container(

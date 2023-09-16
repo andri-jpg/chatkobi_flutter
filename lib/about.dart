@@ -22,12 +22,14 @@ class About extends StatelessWidget {
               style: TextStyle(
                 fontSize: 24.0,
                 fontWeight: FontWeight.bold,
+                fontFamily: 'oxygen',
               ),
             ),
             const SizedBox(height: 8.0),
             const Text(
               'Tentang projek ChatKobi.AI: Ini adalah aplikasi chatbot offline untuk desktop yang kali ini saya implementasikan menjadi aplikasi mobile dengan Flutter. Aplikasi ini bertujuan untuk memberikan informasi medis umum kepada pengguna, meskipun dengan peringatan bahwa informasi tersebut hanya referensi tambahan dan tidak menggantikan konsultasi medis langsung. Proyek ini bersifat open-source dengan lisensi MIT, yang berarti pengguna dapat mengakses dan mendistribusikan kode sumbernya sesuai dengan ketentuan lisensi. Untuk informasi lebih lanjut dan untuk mengakses kode sumber proyek, Anda dapat mengunjungi repositori GitHub',
-              style: TextStyle(fontSize: 16.0),
+              style: TextStyle(fontSize: 16.0,
+              fontFamily: 'oxygen'),
             ),
           
             const SizedBox(height: 16.0),
@@ -36,6 +38,7 @@ class About extends StatelessWidget {
                 'Chatkobi.AI',
                 style: TextStyle(
                   fontSize: 18.0,
+                  fontFamily: 'oxygen',
                   color: Colors.blue,
                 ),
               ),
