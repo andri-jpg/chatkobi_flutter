@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -16,7 +18,7 @@ class _ChatScreenState extends State<ChatScreen> {
   void _handleSubmitted(String text) {
     _textController.clear();
     ChatMessage message = ChatMessage(
-      text: text,
+      text: text, isUserMessage: true,
     );
     setState(() {
       _messages.insert(0, message);
@@ -25,36 +27,33 @@ class _ChatScreenState extends State<ChatScreen> {
     _sendMessageToServer(text);
   }
 
-void _sendMessageToServer(String userInput) async {
-  final url = Uri.parse('http://192.168.85.233:8089/handleinput');
-  final requestBody = {'input': userInput};
+  void _sendMessageToServer(String userInput) async {
+    final url = Uri.parse('http://192.168.85.233:8089/handleinput');
+    final requestBody = {'input': userInput};
 
-  final response = await http.post(
-    url,
-    body: jsonEncode(requestBody), 
-    headers: {'Content-Type': 'application/json'}, 
-  );
+    final response = await http.post(
+      url,
+      body: jsonEncode(requestBody),
+      headers: {'Content-Type': 'application/json'},
+    );
 
-  if (response.statusCode == 200) {
-    final data = jsonDecode(response.body);
-    final botResponse = data['result'];
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      final botResponse = data['result'];
 
-    setState(() {
-      _messages.insert(0, ChatMessage(text: botResponse));
-    });
-  } else {
-    print('Response Code: ${response.statusCode}');
-    print('Response Body: ${response.body}');
-
-    // Handle error response or empty response from the server
-    handleError();
+      setState(() {
+        _messages.insert(0, ChatMessage(text: botResponse, isUserMessage: false,));
+      });
+    } else {
+      print('Response Code: ${response.statusCode}');
+      print('Response Body: ${response.body}');
+      handleError();
+    }
   }
-}
-
 
   void handleError() {
     ChatMessage errorMessage = const ChatMessage(
-      text: 'Maaf, terjadi kesalahan.',
+      text: 'Maaf, terjadi kesalahan.', isUserMessage: false,
     );
 
     setState(() {
@@ -63,29 +62,31 @@ void _sendMessageToServer(String userInput) async {
   }
 
   Widget _buildTextComposer() {
-    return IconTheme(
-      data: const IconThemeData(
-        color: Colors.blue,
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.grey[200],
+        borderRadius: BorderRadius.circular(32.0),
       ),
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: Row(
-          children: <Widget>[
-            Flexible(
+      margin: const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 24.0),
+      child: Row(
+        children: <Widget>[
+          Flexible(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: TextField(
                 controller: _textController,
                 onSubmitted: _handleSubmitted,
                 decoration: const InputDecoration.collapsed(
-                  hintText: 'Ketikkan pesan Anda...',
+                  hintText: 'Ketikkan pertanyaan Anda...',
                 ),
               ),
             ),
-            IconButton(
-              icon: const Icon(Icons.send),
-              onPressed: () => _handleSubmitted(_textController.text),
-            ),
-          ],
-        ),
+          ),
+          IconButton(
+            icon: const Icon(Icons.send),
+            onPressed: () => _handleSubmitted(_textController.text),
+          ),
+        ],
       ),
     );
   }
@@ -106,7 +107,6 @@ void _sendMessageToServer(String userInput) async {
               itemCount: _messages.length,
             ),
           ),
-          const Divider(height: 1.0),
           _buildTextComposer(),
         ],
       ),
@@ -116,8 +116,10 @@ void _sendMessageToServer(String userInput) async {
 
 class ChatMessage extends StatelessWidget {
   final String text;
+  final bool isUserMessage;
 
-  const ChatMessage({Key? key, required this.text}) : super(key: key);
+  const ChatMessage({Key? key, required this.text, required this.isUserMessage})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -130,16 +132,22 @@ class ChatMessage extends StatelessWidget {
             margin: const EdgeInsets.only(right: 16.0),
             child: const CircleAvatar(
               backgroundColor: Colors.blue,
-              child: Text('User'), // Ganti dengan warna yang sesuai
-            ),
-          ),
+              child: Icon(
+                Icons.person,
+                color: Colors.white,
+                size: 24.0, 
+                ),
+                ),
+                ),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                const Text(
-                  'User',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                Text(
+                  isUserMessage ? 'You' : 'AI',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 5.0),

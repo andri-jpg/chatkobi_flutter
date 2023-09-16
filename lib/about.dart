@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -16,7 +18,7 @@ class About extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             const Text(
-              'Disclaimer',
+              'Chatkobi.AI',
               style: TextStyle(
                 fontSize: 24.0,
                 fontWeight: FontWeight.bold,
@@ -24,40 +26,21 @@ class About extends StatelessWidget {
             ),
             const SizedBox(height: 8.0),
             const Text(
-              'ChatKobi.AI adalah proyek sederhana dan tidak menggantikan konsultasi langsung dengan para profesional medis. Informasi yang diberikan oleh chatbot ini hanya sebagai referensi tambahan. Selalu konsultasikan dokter atau ahli kesehatan yang terpercaya untuk diagnosis dan pengobatan yang akurat terkait masalah kesehatan Anda.',
+              'Tentang projek ChatKobi.AI: Ini adalah aplikasi chatbot offline untuk desktop yang kali ini saya implementasikan menjadi aplikasi mobile dengan Flutter. Aplikasi ini bertujuan untuk memberikan informasi medis umum kepada pengguna, meskipun dengan peringatan bahwa informasi tersebut hanya referensi tambahan dan tidak menggantikan konsultasi medis langsung. Proyek ini bersifat open-source dengan lisensi MIT, yang berarti pengguna dapat mengakses dan mendistribusikan kode sumbernya sesuai dengan ketentuan lisensi. Untuk informasi lebih lanjut dan untuk mengakses kode sumber proyek, Anda dapat mengunjungi repositori GitHub',
               style: TextStyle(fontSize: 16.0),
             ),
-            const SizedBox(height: 16.0),
-            const Text(
-              'Proyek ChatKobi.AI adalah proyek open-source dengan lisensi MIT. Oleh karena itu, penggunaan dan distribusi proyek ini tunduk pada ketentuan lisensi MIT yang tercantum dalam berkas LICENSE di repositori.',
-              style: TextStyle(fontSize: 16.0),
-            ),
-            const SizedBox(height: 16.0),
-            const Text(
-              'Dengan menggunakan ChatKobi.AI, Anda setuju untuk mematuhi semua ketentuan dan persyaratan lisensi MIT yang berlaku. Anda juga memahami bahwa penggunaan proyek ini adalah risiko Anda sendiri dan pengembang proyek ini tidak bertanggung jawab atas akibat yang mungkin timbul dari penggunaan proyek ini.',
-              style: TextStyle(fontSize: 16.0),
-            ),
-            const SizedBox(height: 16.0),
-            const Text(
-              'Dengan menggunakannya, Anda setuju untuk membebaskan pengembang proyek dari segala tuntutan, klaim, atau tanggung jawab yang mungkin muncul akibat penggunaan atau distribusi proyek ini. Anda setuju bahwa penggunaan proyek ini adalah sepenuhnya atas risiko Anda dan Anda bertanggung jawab untuk memahami dan mematuhi hukum serta etika terkait penggunaan proyek ini.',
-              style: TextStyle(fontSize: 16.0),
-            ),
-            const SizedBox(height: 16.0),
-            const Text(
-              'Penting untuk diingat bahwa ChatKobi.AI menggunakan teknologi model GPT-2 yang umumnya tidak digunakan untuk memberikan jawaban fakta atau informasi medis yang akurat. Model ini mungkin mengandung bias atau informasi yang tidak sepenuhnya valid.',
-              style: TextStyle(fontSize: 16.0),
-            ),
+          
             const SizedBox(height: 16.0),
             InkWell(
               child: const Text(
-                'Tentang Projek',
+                'Chatkobi.AI',
                 style: TextStyle(
                   fontSize: 18.0,
                   color: Colors.blue,
                 ),
               ),
               onTap: () async {
-                const url = 'https://github.com/andri-jpg/chatkobi.ai'; // Ganti URL sesuai dengan repositori GitHub Anda
+                const url = 'https://github.com/andri-jpg/chatkobi.ai'; 
                 if (await canLaunch(url)) {
                   await launch(url);
                   } else {
