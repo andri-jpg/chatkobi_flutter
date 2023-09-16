@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:spc_app/about.dart';
-import 'package:spc_app/chat.dart';
+import 'package:chatkobi/about.dart';
+import 'package:chatkobi/chat.dart';
 
 
 class Dashboard extends StatelessWidget {
