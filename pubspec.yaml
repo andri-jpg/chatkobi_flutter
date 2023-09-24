@@ -37,7 +37,10 @@ dependencies:
   cupertino_icons: ^1.0.2
   http: ^1.1.0
   url_launcher: ^6.1.14
+  image_picker: 0.8.4
   flutter_markdown: ^0.6.17+3
+  csv: ^5.0.2
+  tflite_flutter: ^0.10.1
 
 dev_dependencies:
   flutter_test:
@@ -58,6 +61,7 @@ flutter:
   uses-material-design: true
   assets:
     - images/
+    - drug_data/
   fonts:
     - family: oxygen
       fonts:

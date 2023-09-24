@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:chatkobi/about.dart';
 import 'package:chatkobi/chat.dart';
-
+import 'package:chatkobi/daftar.dart';
 
 class Dashboard extends StatelessWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -9,11 +9,10 @@ class Dashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('images/arona.jpg'), 
+            image: AssetImage('images/arona.jpg'),
             fit: BoxFit.cover,
           ),
         ),
@@ -24,7 +23,7 @@ class Dashboard extends StatelessWidget {
               alignment: Alignment.centerLeft,
               padding: const EdgeInsets.all(30),
               child: const Text(
-                'Tekan Chat Untuk Memulai :3',
+                'Chatkobi Mobile (Free Version)',
                 style: TextStyle(
                   fontSize: 40,
                   color: Colors.white,
@@ -40,29 +39,33 @@ class Dashboard extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      
-                      _buildTileButton('Chat', context, () {
+                      _buildTileButton('Chatbot\n(Online)', context, () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const ChatScreen()));
+                          MaterialPageRoute(builder: (context) => const ChatScreen()),
+                        );
                       }, Icons.chat),
                       _buildTileButton('About', context, () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const About()));
-                      }, Icons.info), 
+                          MaterialPageRoute(builder: (context) => const About()),
+                        );
+                      }, Icons.info),
                     ],
                   ),
                   const SizedBox(height: 10.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      _buildTileButton('Coming soon', context, () {
-
-                      }, Icons.settings),
-                      _buildTileButton('Coming soon', context, () {
-
-                      }, Icons.star), 
+                      _buildTileButton('Daftar obat', context, () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const DrugList()),
+                        );
+                      }, Icons.medication_outlined),
+                      _buildTileButton('Premium', context, () {
+                        // Tambahkan aksi untuk Premium
+                      }, Icons.star),
                     ],
                   ),
                 ],
@@ -88,7 +91,7 @@ class Dashboard extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Icon(icon, size: 40.0), 
+            Icon(icon, size: 40.0),
             const SizedBox(height: 8.0),
             Text(label),
           ],
@@ -97,5 +100,3 @@ class Dashboard extends StatelessWidget {
     );
   }
 }
-
-
