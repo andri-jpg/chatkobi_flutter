@@ -27,7 +27,7 @@ class About extends StatelessWidget {
             ),
             const SizedBox(height: 8.0),
             const Text(
-              'Tentang projek ChatKobi.AI: Ini adalah aplikasi chatbot offline untuk desktop yang kali ini saya implementasikan menjadi aplikasi mobile dengan Flutter. Aplikasi ini bertujuan untuk memberikan informasi medis umum kepada pengguna, meskipun dengan peringatan bahwa informasi tersebut hanya referensi tambahan dan tidak menggantikan konsultasi medis langsung. Proyek ini bersifat open-source dengan lisensi MIT, yang berarti pengguna dapat mengakses dan mendistribusikan kode sumbernya sesuai dengan ketentuan lisensi. Untuk informasi lebih lanjut dan untuk mengakses kode sumber proyek, Anda dapat mengunjungi repositori GitHub',
+              'ChatKobi.AI adalah aplikasi chatbot kesehatan berbasis model GPT-2 yang menggunakan bahasa Indonesia. Aplikasi ini dirancang khusus untuk berjalan secara offline, memungkinkan pengguna untuk mendapatkan informasi dan saran kesehatan bahkan di wilayah yang minim sinyal internet. Model GPT-2 yang digunakan dalam proyek ini sangat ringan sehingga dapat dijalankan di berbagai perangkat, termasuk laptop dan ponsel dengan spesifikasi rendah. Dengan ChatKobi.AI, Anda dapat dengan mudah mengakses referensi medis tanpa perlu koneksi internet.',
               style: TextStyle(fontSize: 16.0,
               fontFamily: 'oxygen'),
             ),

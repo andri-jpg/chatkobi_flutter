@@ -7,7 +7,7 @@ class DrugDetail extends StatelessWidget {
   final String drugTitle;
   final String drugStrips;
 
-  DrugDetail(this.drugTitle, this.drugStrips);
+  const DrugDetail(this.drugTitle, this.drugStrips, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,11 +16,11 @@ class DrugDetail extends StatelessWidget {
         title: Text(drugTitle),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: ListView(
           children: <Widget>[
             Text('Nama Obat: $drugTitle'),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             FutureBuilder(
               future: _loadDrugContent(drugTitle),
               builder: (context, snapshot) {
@@ -106,7 +106,7 @@ class _DrugListState extends State<DrugList> {
 body: Column(
   children: [
     Padding(
-      padding: EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(16.0),
       child: TextField(
         controller: searchController,
         decoration: const InputDecoration(

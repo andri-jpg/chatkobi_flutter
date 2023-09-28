@@ -1,3 +1,4 @@
+import 'package:chatkobi/tutorial.dart';
 import 'package:flutter/material.dart';
 import 'package:chatkobi/about.dart';
 import 'package:chatkobi/chat.dart';
@@ -23,7 +24,7 @@ class Dashboard extends StatelessWidget {
               alignment: Alignment.centerLeft,
               padding: const EdgeInsets.all(30),
               child: const Text(
-                'Chatkobi Mobile (Free Version)',
+                'Chatkobi.AI\nMobile',
                 style: TextStyle(
                   fontSize: 40,
                   color: Colors.white,
@@ -39,7 +40,7 @@ class Dashboard extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      _buildTileButton('Chatbot\n(Online)', context, () {
+                      _buildTileButton('Chatbot', context, () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => const ChatScreen()),
@@ -63,9 +64,12 @@ class Dashboard extends StatelessWidget {
                           MaterialPageRoute(builder: (context) => const DrugList()),
                         );
                       }, Icons.medication_outlined),
-                      _buildTileButton('Premium', context, () {
-                        // Tambahkan aksi untuk Premium
-                      }, Icons.star),
+                      _buildTileButton('Tutorial', context, () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const TutorialPage()),
+                        );
+                      }, Icons.settings),
                     ],
                   ),
                 ],
